@@ -87,11 +87,12 @@ RUN mkdir -p /var/www/database/seeds
 RUN mkdir -p /var/www/database/factories
 
 # Defining which packages Composer will install
-RUN cp /tmp/laravel/composer.lock /var/www/composer.lock
+# RUN cp /tmp/laravel/composer.lock /var/www/composer.lock
 RUN cp /tmp/laravel/composer.json /var/www/composer.json
 
 # Please, Composer, install them
-RUN composer install -d /var/www --no-dev --no-scripts
+# RUN composer install -d /var/www --no-dev --no-scripts
+RUN composer install -d /var/www --no-scripts
 
 # Moving Laravel to the right place
 RUN cp -r /tmp/laravel/* /var/www
