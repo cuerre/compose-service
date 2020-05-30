@@ -15,120 +15,72 @@ networks:
 
 # Docker Volumes
 volumes:
-    database_data:
-        name: database_data
-
     backend:
         name: backend
-
-    backend_storage:
-        name: backend_storage
 
 
 
 # Docker services     
 services:
 
-    # MySQL Service
-    database:
-        image: mysql:8
-        command: --default-authentication-plugin=mysql_native_password
-        container_name: database
-        restart: always
-        tty: true
-        stdin_open: true
-        environment:
-            MYSQL_ROOT_PASSWORD: root_password
-        volumes:           
-            - database_data:/var/lib/mysql/
-            - ./build/database/docker-files:/docker-entrypoint-initdb.d
-        expose:
-            - "3306"
-        # This is a temporary bugfix
-        ports:
-        - "3306:3306"
-        networks:
-            - internal
-            - external
-
-    # Adminer Service
-    adminer:
-        image: adminer
-        container_name: adminer
-        restart: always
-        tty: true
-        stdin_open: true
-        ports:
-            - 8080:8080
-        networks:
-            - external
-
-    # Redis Service
-    cache:
-        image: redis:5-buster
-        container_name: cache
-        restart: always
-        tty: true
-        stdin_open: true
-        expose:
-            - "6379"
-        networks:
-            - internal
-
     # Web Service (backend)
     backend:
-        build:
-            context: ./build/backend
-            dockerfile: Dockerfile
-            args:
-                GIT_APPLICATION: https://github.com/laravel/laravel.git
-        image: backend:1-laravel
-        depends_on:
-            - database
-            - cache
+        image: registry.gitlab.com/achetronic/cuerre:latest
         container_name: backend
         restart: always
         tty: true
         stdin_open: true
         environment:
-            APP_VENDOR: Achetronic
-            APP_NAME: Your App
+            APP_VENDOR: "ALKE Systems"
+            APP_NAME: "Cuerre"
             APP_ENV: local
-            APP_KEY: "base64:VNt8gejhfX7I3UwNv40focB3QOoH7Jofju9C4h5UeNY="
-            APP_DEBUG: "true"
-            APP_URL: http://your-url.com
+            APP_KEY: "base64:ejHnK9FbRXrtLw85zkQ9Eo7DiyQyJfVSge20qX+rQ8s="
+            APP_DEBUG: "false"
+            APP_URL: http://cuerre.com
             LOG_CHANNEL: stack
+            ###### MYSQL ######
             DB_CONNECTION: mysql
-            DB_HOST: database
+            DB_HOST: "161.35.201.58"
             DB_PORT: 3306
-            DB_DATABASE: service_test
-            DB_USERNAME: normal_user
-            DB_PASSWORD: normal_password
+            DB_DATABASE: "cuerre"
+            DB_USERNAME: "user"
+            DB_PASSWORD: "Cuerre#2020"
+            ###### REDIS ######
             BROADCAST_DRIVER: log
             CACHE_DRIVER: redis
             QUEUE_CONNECTION: sync
             SESSION_DRIVER: redis
             SESSION_LIFETIME: 120
-            REDIS_HOST: cache
+            REDIS_HOST: "161.35.201.58"
             REDIS_PASSWORD: null
             REDIS_PORT: 6379
+            ###### SENDGRID ######
             MAIL_DRIVER: smtp
             MAIL_HOST: smtp.sendgrid.net
             MAIL_PORT: 587
             MAIL_USERNAME: apikey
-            MAIL_PASSWORD: "SG.ASDFASDFASDFASDF..."
+            MAIL_PASSWORD: "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"
             MAIL_ENCRYPTION: tls
             MAIL_FROM_NAME: "${APP_NAME}"
-            MAIL_FROM_ADDRESS: noreply@your-url.com
+            MAIL_FROM_ADDRESS: "noreply@cuerre.com"
+            ###### Paypal LIVE ######
+            PAYPAL_MODE: "live"
+            PAYPAL_LIVE_API_USERNAME : "donfumero_api1.gmail.com"
+            PAYPAL_LIVE_API_PASSWORD : "U95B7P7R3ZJQQ9VN"
+            PAYPAL_LIVE_API_SECRET : "AIsNObN1SyNNjqJjWf1oEu4qD6WYAL1fjpeTpCyPJ5BKrMenA2W3.Yp."
+            #PAYPAL_LIVE_API_CERTIFICATE=""
+            ###### Paypal SANDBOX ######
+            #PAYPAL_SANDBOX_API_USERNAME="sb-ti1lf1640123_api1.business.example.com"
+            #PAYPAL_SANDBOX_API_PASSWORD="S5AASPTS4LDW22DH"
+            #PAYPAL_SANDBOX_API_SECRET="AhA5ldNZQQWNMXmU4HmK-tRXVgZVAegh0I.9D.JPtgQWal70fb2xGnJD"
+            # PAYPAL_SANDBOX_API_CERTIFICATE=""
+
         working_dir: /var/www
         volumes:
             - type: volume
               source: backend
               target: /var/www
-            - type: volume
-              source: backend_storage
-              target: /var/www/storage
-        expose:
+        expose: 
             - "9000"
         networks: 
             - internal
@@ -138,7 +90,7 @@ services:
         build:
             context: ./build/frontend
             dockerfile: Dockerfile
-        image: frontend:1-nginx
+        image: frontend:nginx
         container_name: frontend
         depends_on:
             - backend
@@ -153,9 +105,6 @@ services:
               volume:
                 nocopy: true
                 read_only: true
-        expose:
-            - "80"
-            - "443"
         ports:
             - "80:80"
             - "443:443"
