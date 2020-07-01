@@ -31,13 +31,19 @@ services:
         tty: true
         stdin_open: true
         environment:
-            APP_VENDOR: "ALKE Systems"
+            APP_VENDOR: "Achetronic"
             APP_NAME: "Cuerre"
             APP_ENV: local
             APP_KEY: "base64:ejHnK9FbRXrtLw85zkQ9Eo7DiyQyJfVSge20qX+rQ8s="
             APP_DEBUG: "false"
             APP_URL: http://cuerre.com
             LOG_CHANNEL: stack
+            CUERRE_PRODUCTS_CODES_PRICE: 1
+            CUERRE_PRODUCTS_TOKENS_PRICE: 1
+
+            ###### CERBERO ######
+            CERBERO_SESSION_LIFETIME: 60
+
             ###### MYSQL ######
             DB_CONNECTION: mysql
             DB_HOST: "161.35.201.58"
@@ -45,6 +51,7 @@ services:
             DB_DATABASE: "cuerre"
             DB_USERNAME: "user"
             DB_PASSWORD: "Cuerre#2020"
+
             ###### REDIS ######
             BROADCAST_DRIVER: log
             CACHE_DRIVER: redis
@@ -54,6 +61,7 @@ services:
             REDIS_HOST: "161.35.201.58"
             REDIS_PASSWORD: null
             REDIS_PORT: 6379
+
             ###### SENDGRID ######
             MAIL_DRIVER: smtp
             MAIL_HOST: smtp.sendgrid.net
@@ -63,17 +71,10 @@ services:
             MAIL_ENCRYPTION: tls
             MAIL_FROM_NAME: "${APP_NAME}"
             MAIL_FROM_ADDRESS: "noreply@cuerre.com"
-            ###### Paypal LIVE ######
-            PAYPAL_MODE: "live"
-            PAYPAL_LIVE_API_USERNAME : "donfumero_api1.gmail.com"
-            PAYPAL_LIVE_API_PASSWORD : "U95B7P7R3ZJQQ9VN"
-            PAYPAL_LIVE_API_SECRET : "AIsNObN1SyNNjqJjWf1oEu4qD6WYAL1fjpeTpCyPJ5BKrMenA2W3.Yp."
-            #PAYPAL_LIVE_API_CERTIFICATE=""
-            ###### Paypal SANDBOX ######
-            #PAYPAL_SANDBOX_API_USERNAME="sb-ti1lf1640123_api1.business.example.com"
-            #PAYPAL_SANDBOX_API_PASSWORD="S5AASPTS4LDW22DH"
-            #PAYPAL_SANDBOX_API_SECRET="AhA5ldNZQQWNMXmU4HmK-tRXVgZVAegh0I.9D.JPtgQWal70fb2xGnJD"
-            # PAYPAL_SANDBOX_API_CERTIFICATE=""
+
+            ###### MOLLIE ######
+            MOLLIE_APIKEY : "test_FQnhF3fTQKgUw6JbN9JxpqSr9bGD9n"
+            #MOLLIE_APIKEY : "PROD_klasjkdjas"
 
         working_dir: /var/www
         volumes:
