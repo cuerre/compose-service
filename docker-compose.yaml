@@ -41,6 +41,10 @@ services:
             CUERRE_PRODUCTS_CODES_PRICE: 1
             CUERRE_PRODUCTS_TOKENS_PRICE: 1
 
+            ###### RECAPTCHA ######
+            RECAPTCHA_PUBLIC: 6Ldx_fwUAAAAAEzAKkjJE1slKqJI0ImcORaBCtq2
+            RECAPTCHA_SECRET: 6Ldx_fwUAAAAAKiru101v3-oOQzQuh2ku_egodPe
+
             ###### CERBERO ######
             CERBERO_SESSION_LIFETIME: 60
 
