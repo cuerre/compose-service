@@ -25,7 +25,7 @@ services:
 
     # Web Service (backend)
     backend:
-        image: registry.gitlab.com/achetronic/cuerre:latest
+        image: registry.gitlab.com/cuerre/application:latest
         container_name: backend
         restart: always
         tty: true
