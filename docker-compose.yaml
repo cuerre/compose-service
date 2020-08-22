@@ -38,8 +38,6 @@ services:
             APP_DEBUG: "false"
             APP_URL: http://cuerre.com
             LOG_CHANNEL: stack
-            CUERRE_PRODUCTS_CODES_PRICE: 1
-            CUERRE_PRODUCTS_TOKENS_PRICE: 1
 
             ###### RECAPTCHA ######
             RECAPTCHA_PUBLIC: 6Ldx_fwUAAAAAEzAKkjJE1slKqJI0ImcORaBCtq2
@@ -83,7 +81,7 @@ services:
             ###### CUERRE ######
             CUERRE_CURRENT_VERSION: 1.0
             CUERRE_PROCESSING_CHUNK: 100
-            CUERRE_PRODUCTS_CODES_PRICE_SMALL: 2.0
+            CUERRE_PRODUCTS_CODES_PRICE_SMALL: 0.2
             CUERRE_PRODUCTS_CODES_PRICE_MEDIUM: 0.15
             CUERRE_PRODUCTS_CODES_PRICE_LARGE: 0.1
             CUERRE_PRODUCTS_CODES_GRACE: 12
