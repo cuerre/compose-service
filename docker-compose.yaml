@@ -75,8 +75,10 @@ services:
             MAIL_FROM_ADDRESS: "noreply@cuerre.com"
 
             ###### PAYPAL ######
-            PAYPAL_CLIENT_ID: "AftQ4j5HVwakKO2Tr9pH6anDhmhlIk_PVHtoHTs_1fjr-H210CLPIppzevNr0mOF3aORAaT_LK_mYTws"
-            PAYPAL_CLIENT_SECRET: "EHUq2haz_FnKwUkyPMnvDNE1Jak502K_F1yMtBlEwdL98sTexpJcpik6GJn_GeeccyeJmM1Kp7dE6Gv5"
+            #PAYPAL_CLIENT_ID: "AftQ4j5HVwakKO2Tr9pH6anDhmhlIk_PVHtoHTs_1fjr-H210CLPIppzevNr0mOF3aORAaT_LK_mYTws"
+            #PAYPAL_CLIENT_SECRET: "EHUq2haz_FnKwUkyPMnvDNE1Jak502K_F1yMtBlEwdL98sTexpJcpik6GJn_GeeccyeJmM1Kp7dE6Gv5"
+            PAYPAL_CLIENT_ID: "Abt3mjpBBcq8nncrKVFUnn7cIcoKmgLIRBTsD45AegROe1KfrTBaEOLB2nv3l683-wZSqbKyAmuNR3I7"
+            PAYPAL_CLIENT_SECRET: "EBdd7_7CSkhfeiqhmpYKn0c-7JL3vHerJDF1hkGe6lqvJBmRiFwJkVma9SPx2QsFl0RtxtPZaE-hrJpR"
 
             ###### CUERRE ######
             CUERRE_CURRENT_VERSION: 1.0
