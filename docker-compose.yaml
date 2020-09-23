@@ -43,8 +43,6 @@ services:
             - ./build/database:/docker-entrypoint-initdb.d
         expose: 
             - "3306"
-        # ports:
-        #     - "3306:3306"
         networks:
             - internal
 
@@ -71,8 +69,6 @@ services:
         stdin_open: true
         expose: 
             - "8080"
-        # ports:
-        #     - "8020:8080"
         networks:
             - internal
 
@@ -92,7 +88,7 @@ services:
             APP_ENV: local
             APP_KEY: "base64:ejHnK9FbRXrtLw85zkQ9Eo7DiyQyJfVSge20qX+rQ8s="
             APP_DEBUG: "false"
-            APP_URL: http://cuerre.com
+            APP_URL: https://cuerre.com
             LOG_CHANNEL: stack
 
             ###### RECAPTCHA ######
@@ -177,8 +173,6 @@ services:
                 read_only: true
         expose: 
             - "80"
-        # ports:
-        #     - "8010:80"
         networks:
             - internal
 
@@ -188,6 +182,7 @@ services:
         container_name: lets-haproxy
         depends_on:
             - frontend
+            - adminer
         restart: always
         tty: true
         stdin_open: true
