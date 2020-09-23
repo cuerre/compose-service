@@ -17,11 +17,59 @@ networks:
 volumes:
     backend:
         name: backend
+    database_data:
+        name: database_data
 
 
 
 # Docker services     
 services:
+
+    # MySQL Service
+    database:
+        image: mysql:8
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: database
+        restart: always
+        tty: true
+        stdin_open: true
+        environment:
+            MYSQL_ROOT_PASSWORD: "Cuerre#2030"
+            MYSQL_USER: "user"
+            MYSQL_PASSWORD: "Cuerre#2020"
+            MYSQL_DATABASE: "cuerre" 
+        volumes:           
+            - database_data:/var/lib/mysql/
+            - ./build/database:/docker-entrypoint-initdb.d
+        ports:
+            - "3306:3306"
+        networks:
+            - internal
+
+    # Redis Service
+    cache:
+        image: redis:6-buster
+        container_name: cache
+        restart: always
+        tty: true
+        stdin_open: true
+        ports:
+            - "6379:6379"
+        networks:
+            - internal
+
+    # Adminer Service
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+        tty: true
+        stdin_open: true
+        ports:
+            - "8020:8080"
+        networks:
+            - internal
+            - external
 
     # Web Service (backend)
     backend:
@@ -30,6 +78,9 @@ services:
         restart: always
         tty: true
         stdin_open: true
+        depends_on:
+            - database
+            - cache
         environment:
             APP_VENDOR: "Achetronic"
             APP_NAME: "Cuerre"
@@ -48,7 +99,7 @@ services:
 
             ###### MYSQL ######
             DB_CONNECTION: mysql
-            DB_HOST: "161.35.201.58"
+            DB_HOST: "database"
             DB_PORT: 3306
             DB_DATABASE: "cuerre"
             DB_USERNAME: "user"
@@ -60,7 +111,7 @@ services:
             QUEUE_CONNECTION: sync
             SESSION_DRIVER: redis
             SESSION_LIFETIME: 120
-            REDIS_HOST: "161.35.201.58"
+            REDIS_HOST: "cache"
             REDIS_PASSWORD: null
             REDIS_PORT: 6379
 
@@ -120,9 +171,29 @@ services:
                 nocopy: true
                 read_only: true
         ports:
-            - "80:80"
-            - "443:443"
+            - "8010:80"
         networks:
             - internal
             - external
+
+    # lets-haproxy
+    lets-haproxy:
+        image: achetronic/lets-haproxy:latest
+        container_name: lets-haproxy
+        restart: always
+        tty: true
+        stdin_open: true
+        environment:
+            ADMIN_MAIL: "me@achetronic.com"
+            SKIP_CREATION: "false"
+            # Environment: staging | production
+            ENVIRONMENT: "staging" 
+        volumes:
+            - ./build/lets-haproxy/haproxy.cfg:/root/templates/haproxy.user.cfg:ro
+            - ./letsencrypt/log:/var/log/letsencrypt
+            - ./letsencrypt:/etc/letsencrypt
+        ports:
+            - "80:80"
+            - "443:443"
+
 
