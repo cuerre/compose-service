@@ -180,6 +180,8 @@ services:
     lets-haproxy:
         image: achetronic/lets-haproxy:latest
         container_name: lets-haproxy
+        depends_on:
+            - frontend
         restart: always
         tty: true
         stdin_open: true
