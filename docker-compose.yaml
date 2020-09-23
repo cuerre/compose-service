@@ -85,7 +85,7 @@ services:
         environment:
             APP_VENDOR: "Achetronic"
             APP_NAME: "Cuerre"
-            APP_ENV: local
+            APP_ENV: production
             APP_KEY: "base64:ejHnK9FbRXrtLw85zkQ9Eo7DiyQyJfVSge20qX+rQ8s="
             APP_DEBUG: "false"
             APP_URL: https://cuerre.com
@@ -190,7 +190,7 @@ services:
             ADMIN_MAIL: "me@achetronic.com"
             SKIP_CREATION: "false"
             # Environment: staging | production
-            ENVIRONMENT: "staging" 
+            ENVIRONMENT: "production" 
         volumes:
             - ./build/lets-haproxy/haproxy.cfg:/root/templates/haproxy.user.cfg:ro
             - ./letsencrypt/log:/var/log/letsencrypt
