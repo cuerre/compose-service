@@ -66,10 +66,9 @@ services:
         tty: true
         stdin_open: true
         ports:
-            - "8000:8080"
+            - "8020:8080"
         networks:
             - internal
-            - external
 
     # Web Service (backend)
     backend:
@@ -174,7 +173,6 @@ services:
             - "8010:80"
         networks:
             - internal
-            - external
 
     # lets-haproxy
     lets-haproxy:
@@ -197,5 +195,7 @@ services:
         ports:
             - "80:80"
             - "443:443"
-
+        networks:
+            - internal
+            - external
 
