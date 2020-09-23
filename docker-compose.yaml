@@ -188,7 +188,7 @@ services:
         stdin_open: true
         environment:
             ADMIN_MAIL: "me@achetronic.com"
-            SKIP_CREATION: "true"
+            SKIP_CREATION: "false"
             # Environment: staging | production
             ENVIRONMENT: "production" 
         volumes:
