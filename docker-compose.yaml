@@ -41,8 +41,10 @@ services:
         volumes:           
             - database_data:/var/lib/mysql/
             - ./build/database:/docker-entrypoint-initdb.d
-        ports:
-            - "3306:3306"
+        expose: 
+            - "3306"
+        # ports:
+        #     - "3306:3306"
         networks:
             - internal
 
@@ -53,8 +55,10 @@ services:
         restart: always
         tty: true
         stdin_open: true
-        ports:
-            - "6379:6379"
+        expose: 
+            - "6379"
+        # ports:
+        #     - "6379:6379"
         networks:
             - internal
 
@@ -65,8 +69,10 @@ services:
         restart: always
         tty: true
         stdin_open: true
-        ports:
-            - "8020:8080"
+        expose: 
+            - "8080"
+        # ports:
+        #     - "8020:8080"
         networks:
             - internal
 
@@ -169,8 +175,10 @@ services:
               volume:
                 nocopy: true
                 read_only: true
-        ports:
-            - "8010:80"
+        expose: 
+            - "80"
+        # ports:
+        #     - "8010:80"
         networks:
             - internal
 
